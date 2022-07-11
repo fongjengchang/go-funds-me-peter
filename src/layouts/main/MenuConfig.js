@@ -1,7 +1,7 @@
 // routes
-import { PATH_AUTH, PATH_PAGE } from '../../routes/paths';
+// import { PATH_AUTH, PATH_PAGE } from '../../routes/paths';
 // components
-import { PATH_AFTER_LOGIN } from '../../config';
+// import { PATH_AFTER_LOGIN } from '../../config';
 // components
 import Iconify from '../../components/Iconify';
 
@@ -59,9 +59,10 @@ const menuConfig = [
   //   ],
   // },
   {
-    title: 'About Us',
+    title: 'Sign In',
     icon: <Iconify icon={'eva:book-open-fill'} {...ICON_SIZE} />,
-    path: PATH_PAGE.about,
+    path: '/login',
+    // path: PATH_AUTH.login,
   },
 ];
 

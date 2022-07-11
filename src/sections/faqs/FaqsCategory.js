@@ -24,12 +24,12 @@ const CATEGORIES = [
     href: '#',
   },
   {
-    label: 'Delivery',
+    label: 'Travel with fundraisers',
     icon: 'https://minimal-assets-api-dev.vercel.app/assets/icons/faqs/ic_delivery.svg',
     href: '#',
   },
   {
-    label: 'Problem with the Product',
+    label: 'Problem with the Donation',
     icon: 'https://minimal-assets-api-dev.vercel.app/assets/icons/faqs/ic_package.svg',
     href: '#',
   },

@@ -12,7 +12,7 @@ import { MotionContainer, TextAnimate, varFade } from '../../components/animate'
 const RootStyle = styled('div')(({ theme }) => ({
   backgroundSize: 'cover',
   backgroundImage:
-    'url(/assets/overlay.svg), url(https://minimal-assets-api-dev.vercel.app/assets/images/faqs/hero.jpg)',
+    'url(/assets/overlay.svg), url(/assets/landing-hero.jpg)',
   padding: theme.spacing(10, 0),
   [theme.breakpoints.up('md')]: {
     height: 560,
@@ -37,20 +37,19 @@ export default function FaqsHero() {
       <Container component={MotionContainer} sx={{ position: 'relative', height: '100%' }}>
         <ContentStyle spacing={5}>
           <div>
-            <TextAnimate text="How" sx={{ color: 'primary.main' }} variants={varFade().inRight} />
+            <TextAnimate text="Your" sx={{ color: 'primary.main' }} variants={varFade().inRight} />
             <br />
-            <Box sx={{ display: 'inline-flex', color: 'common.white' }}>
-              <TextAnimate text="can" sx={{ mr: 2 }} />
-              <TextAnimate text="we" sx={{ mr: 2 }} />
-              <TextAnimate text="help" sx={{ mr: 2 }} />
-              <TextAnimate text="you?" />
+            <Box sx={{ display: 'inline-flex', color: 'primary.light' }}>
+              <TextAnimate text="home" sx={{ mr: 2 }} />
+              <TextAnimate text="for" sx={{ mr: 2 }} />
+              <TextAnimate text="help" />
             </Box>
           </div>
 
-          <m.div variants={varFade().inUp}>
+          <m.div variants={varFade().inRight}>
             <InputStyle
               stretchStart={280}
-              placeholder="Search support"
+              placeholder="Search fundraisers"
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">

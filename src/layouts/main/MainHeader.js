@@ -13,7 +13,7 @@ import { HEADER } from '../../config';
 import Logo from '../../components/Logo';
 import Label from '../../components/Label';
 // paths
-import { PATH_AUTH } from '../../routes/paths';
+// import { PATH_AUTH } from '../../routes/paths';
 //
 import MenuDesktop from './MenuDesktop';
 import MenuMobile from './MenuMobile';
@@ -70,6 +70,7 @@ export default function MainHeader() {
         }}
       >
         <Container
+          maxWidth="xl"
           sx={{
             display: 'flex',
             alignItems: 'center',
@@ -79,18 +80,19 @@ export default function MainHeader() {
           <Logo />
 
           <Label color="info" sx={{ ml: 1 }}>
-            v3.4.0
+            Donate
           </Label>
           <Box sx={{ flexGrow: 1 }} />
 
           {isDesktop && <MenuDesktop isOffset={isOffset} isHome={isHome} navConfig={navConfig} />}
 
           <Button
-            variant="contained"
+            variant="outlined"
             component={RouterLink}
-            to={PATH_AUTH.register}
+            to="/register"
+            // to={PATH_AUTH.register}
           >
-            Get Started
+            Start CrowdSourcing
           </Button>
 
           {!isDesktop && <MenuMobile isOffset={isOffset} isHome={isHome} navConfig={navConfig} />}
