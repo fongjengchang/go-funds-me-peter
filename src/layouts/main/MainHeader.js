@@ -84,7 +84,7 @@ export default function MainHeader() {
           </Label>
           <Box sx={{ flexGrow: 1 }} />
 
-          {isDesktop && <MenuDesktop isOffset={isOffset} isHome={isHome} navConfig={navConfig} />}
+          {isDesktop && <MenuDesktop isOffset={isOffset} navConfig={navConfig} />}
 
           <Button
             variant="outlined"
