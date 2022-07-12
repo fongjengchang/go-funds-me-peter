@@ -13,7 +13,7 @@ import { HEADER } from '../../config';
 import Logo from '../../components/Logo';
 import Label from '../../components/Label';
 // paths
-// import { PATH_AUTH } from '../../routes/paths';
+import { PATH_AUTH } from '../../routes/paths';
 //
 import MenuDesktop from './MenuDesktop';
 import MenuMobile from './MenuMobile';
@@ -89,8 +89,7 @@ export default function MainHeader() {
           <Button
             variant="outlined"
             component={RouterLink}
-            to="/register"
-            // to={PATH_AUTH.register}
+            to={PATH_AUTH.register}
           >
             Start CrowdSourcing
           </Button>

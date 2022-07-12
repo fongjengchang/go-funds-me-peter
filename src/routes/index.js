@@ -36,7 +36,7 @@ export default function Router() {
           path: 'login',
           element: (
             <GuestGuard>
-              <Login />
+              <Maintenance />
             </GuestGuard>
           ),
         },
@@ -44,7 +44,7 @@ export default function Router() {
           path: 'register',
           element: (
             <GuestGuard>
-              <Register />
+              <ComingSoon />
             </GuestGuard>
           ),
         },
@@ -116,3 +116,5 @@ const NotFound = Loadable(lazy(() => import('../pages/Page404')));
 // MAIN
 const HomePage = Loadable(lazy(() => import('../pages/Home')));
 const About = Loadable(lazy(() => import('../pages/About')));
+const Maintenance = Loadable(lazy(() => import('../pages/Maintenance')));
+const ComingSoon = Loadable(lazy(() => import('../pages/ComingSoon')));
