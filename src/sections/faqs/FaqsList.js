@@ -75,7 +75,7 @@ export default function FaqsList() {
               options={top100Films}
               getOptionLabel={(option) => option.title}
               filterOptions={filterOptions}
-              renderInput={(params) => <TextField {...params} label="Search for American State or other regions" />}
+              renderInput={(params) => <TextField {...params} label="Search for American State or Other Regional Subdivison" />}
             />
             <FormHelperText>Enter American State or Other Regional Subdivision to find  + fundraisers</FormHelperText>
           </CardContent>

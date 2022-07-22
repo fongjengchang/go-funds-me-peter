@@ -10,8 +10,8 @@ import cssStyles from '../../utils/cssStyles';
 // config
 import { HEADER } from '../../config';
 // components
-import Logo from '../../components/Logo';
-import Label from '../../components/Label';
+// import Logo from '../../components/Logo';
+// import Label from '../../components/Label';
 // paths
 import { PATH_AUTH } from '../../routes/paths';
 //
@@ -77,11 +77,11 @@ export default function MainHeader() {
             justifyContent: 'space-between',
           }}
         >
-          <Logo />
+          {/* <Logo /> */}
 
-          <Label color="info" sx={{ ml: 1 }}>
+          {/* <Label color="info" sx={{ ml: 1 }}>
             Donate
-          </Label>
+          </Label> */}
           <Box sx={{ flexGrow: 1 }} />
 
           {isDesktop && <MenuDesktop isOffset={isOffset} navConfig={navConfig} />}
@@ -91,7 +91,7 @@ export default function MainHeader() {
             component={RouterLink}
             to={PATH_AUTH.register}
           >
-            Start CrowdSourcing
+            Start Crowdfunding
           </Button>
 
           {!isDesktop && <MenuMobile isOffset={isOffset} isHome={isHome} navConfig={navConfig} />}

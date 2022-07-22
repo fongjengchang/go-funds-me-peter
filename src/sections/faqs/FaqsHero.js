@@ -1,7 +1,7 @@
 import { m } from 'framer-motion';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Box, Container, Stack, InputAdornment } from '@mui/material';
+import { Box, Container, Stack, InputAdornment, Button } from '@mui/material';
 // components
 import Iconify from '../../components/Iconify';
 import InputStyle from '../../components/InputStyle';
@@ -11,8 +11,7 @@ import { MotionContainer, TextAnimate, varFade } from '../../components/animate'
 
 const RootStyle = styled('div')(({ theme }) => ({
   backgroundSize: 'cover',
-  backgroundImage:
-    'url(/assets/overlay.svg), url(/assets/landing-hero.jpg)',
+  backgroundImage: 'url(/assets/overlay.svg), url(/assets/landing-hero.jpg)',
   padding: theme.spacing(10, 0),
   [theme.breakpoints.up('md')]: {
     height: 560,
@@ -47,22 +46,27 @@ export default function FaqsHero() {
           </div>
 
           <m.div variants={varFade().inRight}>
-            <InputStyle
-              stretchStart={280}
-              placeholder="Search fundraisers"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <Iconify icon={'eva:search-fill'} sx={{ color: 'text.disabled', width: 20, height: 20 }} />
-                  </InputAdornment>
-                ),
-              }}
-              sx={{
-                '& .MuiOutlinedInput-root': {
-                  color: 'common.white',
-                },
-              }}
-            />
+            <Stack spacing={1} direction={{ xs: 'column', md: 'row' }}>
+              <InputStyle
+                stretchStart={280}
+                placeholder="Search fundraisers"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Iconify icon={'eva:search-fill'} sx={{ color: 'text.disabled', width: 20, height: 20 }} />
+                    </InputAdornment>
+                  ),
+                }}
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    color: 'common.white',
+                  },
+                }}
+              />
+              <Button sx={{ maxWidth: 150, margin: 'auto' }} variant="contained" startIcon={<Iconify icon={'bx:map-pin'} />}>
+                View On Map
+              </Button>
+            </Stack>
           </m.div>
         </ContentStyle>
       </Container>

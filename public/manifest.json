@@ -1,6 +1,6 @@
 {
-  "name": "CrowdSourcing",
-  "short_name": "CrowdSourcing",
+  "name": "Crowdfunding",
+  "short_name": "Crowdfunding",
   "display": "standalone",
   "start_url": "/",
   "theme_color": "#000000",

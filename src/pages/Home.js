@@ -1,6 +1,6 @@
 // @mui
 import { styled } from '@mui/material/styles';
-import { Grid, Container, Typography } from '@mui/material';
+import { Grid, Container, Typography, Box } from '@mui/material';
 // components
 import Page from '../components/Page';
 import { FaqsHero, FaqsCategory, FaqsList } from '../sections/faqs';
@@ -21,12 +21,10 @@ export default function Faqs() {
     <Page title="Home">
       <RootStyle>
         <FaqsHero />
-
-        <Container sx={{ mt: 15, mb: 10, position: 'relative' }}>
-          <FaqsCategory />
+        <Container sx={{ mt: 15, mb: 0, position: 'relative' }}>
 
           <Typography variant="h3" sx={{ mb: 5, textAlign: 'center' }}>
-            Crowdsourcing for Humanity
+            Crowdfunding for Humanity
           </Typography>
 
           <Grid container spacing={10}>
@@ -34,6 +32,8 @@ export default function Faqs() {
               <FaqsList />
             </Grid>
           </Grid>
+          <Box sx={{ mb: 10}} />
+          <FaqsCategory />
         </Container>
       </RootStyle>
     </Page>

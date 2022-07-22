@@ -57,8 +57,8 @@ export default function MainFooter() {
           </Grid>
           <Grid item xs={8} md={3}>
             <Typography variant="body2" sx={{ pr: { md: 5 } }}>
-              The starting point for your next project with CrowdSourcing, built on the newest
-              version of CrowdSourcing ©, ready to be customized to your style.
+              The starting point for your next project with Crowdfunding, built on the newest
+              version of Crowdfunding ©, ready to be customized to your style.
             </Typography>
 
             <Stack
