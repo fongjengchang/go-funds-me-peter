@@ -1,9 +1,9 @@
 // @mui
 import { styled } from '@mui/material/styles';
-import { Grid, Container, Typography, Box } from '@mui/material';
+import { Grid, Container, Box } from '@mui/material';
 // components
 import Page from '../components/Page';
-import { FaqsHero, FaqsCategory, FaqsList } from '../sections/faqs';
+import { FaqsCategory, FaqsList } from '../sections/faqs';
 
 // ----------------------------------------------------------------------
 
@@ -20,12 +20,7 @@ export default function Faqs() {
   return (
     <Page title="Home">
       <RootStyle>
-        <FaqsHero />
-        <Container sx={{ mt: 15, mb: 0, position: 'relative' }}>
-
-          <Typography variant="h3" sx={{ mb: 5, textAlign: 'center' }}>
-            Crowdfunding for Humanity
-          </Typography>
+        <Container sx={{ mt: 5, mb: 0, position: 'relative' }}>
 
           <Grid container spacing={10}>
             <Grid item xs={12}>

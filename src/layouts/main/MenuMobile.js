@@ -25,12 +25,10 @@ const ListItemStyle = styled(ListItemButton)(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 MenuMobile.propTypes = {
-  isOffset: PropTypes.bool,
-  isHome: PropTypes.bool,
   navConfig: PropTypes.array,
 };
 
-export default function MenuMobile({ isOffset, isHome, navConfig }) {
+export default function MenuMobile({ navConfig }) {
   const { pathname } = useLocation();
 
   const [open, setOpen] = useState(false);
@@ -62,8 +60,7 @@ export default function MenuMobile({ isOffset, isHome, navConfig }) {
         onClick={handleDrawerOpen}
         sx={{
           ml: 1,
-          ...(isHome && { color: 'common.white' }),
-          ...(isOffset && { color: 'text.primary' }),
+          color: 'text.primary',
         }}
       >
         <Iconify icon={'eva:menu-2-fill'} />

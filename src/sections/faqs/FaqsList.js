@@ -8,7 +8,7 @@ import mockData from '../../assets/mock_up_data.json';
 
 // ----------------------------------------------------------------------
 
-const { countries, top100Films } = mockData;
+const { countries, top100Films, federalFundraisers } = mockData;
 
 const filterOptions = createFilterOptions({
   matchFrom: 'start',
@@ -18,20 +18,6 @@ const filterOptions = createFilterOptions({
 export default function FaqsList() {
   return (
     <Grid container spacing={2}>
-      <Grid item xs={12}>
-        <Card sx={{ minWidth: 275 }}>
-          <CardContent sx={{ padding: '15px !important' }}>
-            <Autocomplete
-              id="filter-demo"
-              options={top100Films}
-              getOptionLabel={(option) => option.title}
-              filterOptions={filterOptions}
-              renderInput={(params) => <TextField {...params} label="Search for Global fundraisers" />}
-            />
-            <FormHelperText>Search for Global fundraisers</FormHelperText>
-          </CardContent>
-        </Card>
-      </Grid>
       <Grid item xs={12}>
         <Card sx={{ minWidth: 275 }}>
           <CardContent sx={{ padding: '15px !important' }}>
@@ -55,13 +41,27 @@ export default function FaqsList() {
               renderInput={(params) => (
                 <TextField
                   {...params}
-                  label="Search a country"
+                  label="Search for Global fundraisers"
                   inputProps={{
                     ...params.inputProps,
                     autoComplete: 'new-password', // disable autocomplete and autofill
                   }}
                 />
               )}
+            />
+            <FormHelperText>Search for Global fundraisers</FormHelperText>
+          </CardContent>
+        </Card>
+      </Grid>
+      <Grid item xs={12}>
+        <Card sx={{ minWidth: 275 }}>
+          <CardContent sx={{ padding: '15px !important' }}>
+            <Autocomplete
+              id="filter-demo"
+              options={federalFundraisers}
+              getOptionLabel={(option) => option.title}
+              filterOptions={filterOptions}
+              renderInput={(params) => <TextField {...params} label="Search for Federal fundraisers" />}
             />
             <FormHelperText>Enter Country to find federal level fundraisers</FormHelperText>
           </CardContent>
@@ -75,9 +75,11 @@ export default function FaqsList() {
               options={top100Films}
               getOptionLabel={(option) => option.title}
               filterOptions={filterOptions}
-              renderInput={(params) => <TextField {...params} label="Search for American State or Other Regional Subdivison" />}
+              renderInput={(params) => (
+                <TextField {...params} label="Search for American State or Other Regional Subdivison" />
+              )}
             />
-            <FormHelperText>Enter American State or Other Regional Subdivision to find  + fundraisers</FormHelperText>
+            <FormHelperText>Enter American State or Other Regional Subdivision to find + fundraisers</FormHelperText>
           </CardContent>
         </Card>
       </Grid>

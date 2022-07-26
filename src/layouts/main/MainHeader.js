@@ -1,7 +1,7 @@
-import { NavLink as RouterLink, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import { styled, useTheme } from '@mui/material/styles';
-import { Box, Button, AppBar, Toolbar, Container } from '@mui/material';
+import { Box, Button, AppBar, Toolbar, Container, Stack, InputAdornment } from '@mui/material';
 // hooks
 import useOffSetTop from '../../hooks/useOffSetTop';
 import useResponsive from '../../hooks/useResponsive';
@@ -10,10 +10,10 @@ import cssStyles from '../../utils/cssStyles';
 // config
 import { HEADER } from '../../config';
 // components
-// import Logo from '../../components/Logo';
-// import Label from '../../components/Label';
+import Iconify from '../../components/Iconify';
+import InputStyle from '../../components/InputStyle';
 // paths
-import { PATH_AUTH } from '../../routes/paths';
+// import { PATH_AUTH } from '../../routes/paths';
 //
 import MenuDesktop from './MenuDesktop';
 import MenuMobile from './MenuMobile';
@@ -77,22 +77,32 @@ export default function MainHeader() {
             justifyContent: 'space-between',
           }}
         >
-          {/* <Logo /> */}
-
-          {/* <Label color="info" sx={{ ml: 1 }}>
-            Donate
-          </Label> */}
+          <Stack spacing={1} direction="row">
+            <InputStyle
+              stretchStart={280}
+              placeholder="Search fundraisers"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Iconify icon={'eva:search-fill'} sx={{ color: 'text.disabled', width: 20, height: 20 }} />
+                  </InputAdornment>
+                ),
+              }}
+              sx={{
+                '& .MuiOutlinedInput-root': {
+                  height: 40
+                },
+              }}
+            />
+            {isDesktop && (
+              <Button sx={{ maxWidth: 150, margin: 'auto' }} variant="contained">
+                <Iconify icon={'bx:map-pin'} sx={{ width: 25, height: 25 }} />
+              </Button>
+            )}
+          </Stack>
           <Box sx={{ flexGrow: 1 }} />
 
           {isDesktop && <MenuDesktop isOffset={isOffset} navConfig={navConfig} />}
-
-          <Button
-            variant="outlined"
-            component={RouterLink}
-            to={PATH_AUTH.register}
-          >
-            Start Crowdfunding
-          </Button>
 
           {!isDesktop && <MenuMobile isOffset={isOffset} isHome={isHome} navConfig={navConfig} />}
         </Container>
