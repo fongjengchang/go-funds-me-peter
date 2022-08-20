@@ -1,102 +1,188 @@
-// @mui
-import { Card, CardContent, Box, TextField, Grid, FormHelperText } from '@mui/material';
-import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
-// _mock_
-import mockData from '../../assets/mock_up_data.json';
+import React, { useState } from 'react';
+import { styled } from '@mui/material/styles';
+import MuiAccordion from '@mui/material/Accordion';
+import MuiAccordionSummary from '@mui/material/AccordionSummary';
+import MuiAccordionDetails from '@mui/material/AccordionDetails';
+
+import { Stack, Typography, Box, Button } from '@mui/material';
+
+import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
+
 // components
-// import Iconify from '../../components/Iconify';
+import Iconify from '../../components/Iconify';
 
-// ----------------------------------------------------------------------
+import mockData from '../../assets/mock_up_data.json';
 
-const { countries, top100Films, federalFundraisers } = mockData;
+const { federalFundraisers } = mockData;
 
-const filterOptions = createFilterOptions({
-  matchFrom: 'start',
-  stringify: (option) => option.title,
-});
+const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
+  height: 20,
+  borderRadius: 5,
+  [`&.${linearProgressClasses.colorPrimary}`]: {
+    backgroundColor: theme.palette.grey[theme.palette.mode === 'light' ? 200 : 800],
+  },
+  [`& .${linearProgressClasses.bar}`]: {
+    borderRadius: 5,
+    backgroundColor: theme.palette.mode === 'light' ? '#1a90ff' : '#308fe8',
+  },
+}));
 
-export default function FaqsList() {
+const Accordion = styled((props) => <MuiAccordion disableGutters elevation={0} square {...props} />)(({ theme }) => ({
+  border: `1px solid ${theme.palette.divider}`,
+  '&:not(:last-child)': {
+    borderBottom: 0,
+  },
+  '&:before': {
+    display: 'none',
+  },
+}));
+
+const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
+  padding: theme.spacing(2),
+  borderTop: '1px solid rgba(0, 0, 0, .125)',
+}));
+
+const AccordionSummary = styled((props) => {
+  const { expanded } = props;
   return (
-    <Grid container spacing={2}>
-      <Grid item xs={12}>
-        <Card sx={{ minWidth: 275 }}>
-          <CardContent sx={{ padding: '15px !important' }}>
-            <Autocomplete
-              id="country-select-demo"
-              options={countries}
-              autoHighlight
-              getOptionLabel={(option) => option.label}
-              renderOption={(props, option) => (
-                <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
-                  <img
-                    loading="lazy"
-                    width="20"
-                    src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
-                    srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
-                    alt=""
-                  />
-                  {option.label} ({option.code})
-                </Box>
-              )}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Search for Global fundraisers"
-                  inputProps={{
-                    ...params.inputProps,
-                    autoComplete: 'new-password', // disable autocomplete and autofill
-                  }}
-                />
-              )}
-            />
-            <FormHelperText>Search for Global fundraisers</FormHelperText>
-          </CardContent>
-        </Card>
-      </Grid>
-      <Grid item xs={12}>
-        <Card sx={{ minWidth: 275 }}>
-          <CardContent sx={{ padding: '15px !important' }}>
-            <Autocomplete
-              id="filter-demo"
-              options={federalFundraisers}
-              getOptionLabel={(option) => option.title}
-              filterOptions={filterOptions}
-              renderInput={(params) => <TextField {...params} label="Search for Federal fundraisers" />}
-            />
-            <FormHelperText>Enter Country to find federal level fundraisers</FormHelperText>
-          </CardContent>
-        </Card>
-      </Grid>
-      <Grid item xs={12}>
-        <Card sx={{ minWidth: 275 }}>
-          <CardContent sx={{ padding: '15px !important' }}>
-            <Autocomplete
-              id="filter-demo"
-              options={top100Films}
-              getOptionLabel={(option) => option.title}
-              filterOptions={filterOptions}
-              renderInput={(params) => (
-                <TextField {...params} label="Search for American State or Other Regional Subdivison" />
-              )}
-            />
-            <FormHelperText>Enter American State or Other Regional Subdivision to find + fundraisers</FormHelperText>
-          </CardContent>
-        </Card>
-      </Grid>
-      <Grid item xs={12}>
-        <Card sx={{ minWidth: 275 }}>
-          <CardContent sx={{ padding: '15px !important' }}>
-            <Autocomplete
-              id="filter-demo"
-              options={top100Films}
-              getOptionLabel={(option) => option.title}
-              filterOptions={filterOptions}
-              renderInput={(params) => <TextField {...params} label="Search for local county, city, or town" />}
-            />
-            <FormHelperText>Enter local county, city, or town to find fundraisers</FormHelperText>
-          </CardContent>
-        </Card>
-      </Grid>
-    </Grid>
+    <MuiAccordionSummary
+      expandIcon={<Iconify icon={expanded === 'true' ? 'akar-icons:minus' : 'akar-icons:plus'} />}
+      {...props}
+    />
+  );
+})(({ theme }) => ({
+  backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, .05)' : 'rgba(0, 0, 0, .03)',
+  flexDirection: 'row',
+  '& .MuiAccordionSummary-content': {
+    justifyContent: 'center',
+  },
+}));
+
+export default function CustomizedAccordions() {
+  const [expanded, setExpanded] = useState('panel1');
+  const [subExpended, setSubExpended] = useState(false);
+
+  const handleChange = (panel) => (event, newExpanded) => {
+    setExpanded(newExpanded ? panel : false);
+  };
+
+  const handleSubChange = (panel) => (event, newExpanded) => {
+    setSubExpended(newExpanded ? panel : false);
+  };
+
+  return (
+    <div>
+      <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+        <AccordionSummary
+          aria-controls="panel1d-content"
+          id="panel1d-header"
+          expanded={expanded === 'panel1' ? 'true' : 'false'}
+        >
+          <Typography>Global</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit
+            leo lobortis eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+            sit amet blandit leo lobortis eget.
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+
+      <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
+        <AccordionSummary
+          aria-controls="panel2d-content"
+          id="panel2d-header"
+          expanded={expanded === 'panel2' || subExpended ? 'true' : 'false'}
+        >
+          <Typography>Federal</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          {federalFundraisers.map((fundraiser) => (
+            <Accordion
+              key={fundraiser.id}
+              expanded={subExpended === `sub-panel${fundraiser.id}`}
+              onChange={handleSubChange(`sub-panel${fundraiser.id}`)}
+            >
+              <AccordionSummary
+                aria-controls={`sub-panel${fundraiser.id}d-content`}
+                id={`sub-panel${fundraiser.id}d-header`}
+                expanded={subExpended === `sub-panel${fundraiser.id}` ? 'true' : 'false'}
+              >
+                <Typography>{fundraiser.title}</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Stack direction="row" spacing={2} alignItems="center">
+                  <Typography>
+                    Increase Servicememeber Salaries <br />
+                    Goal: $50,000,000
+                  </Typography>
+                  <Box sx={{ position: 'relative', flexGrow: 1 }}>
+                    <BorderLinearProgress variant="determinate" value={11} />
+                    <Typography
+                      style={{
+                        position: 'absolute',
+                        color: 'white',
+                        top: 0,
+                        left: '5%',
+                        transform: 'translateX(-50%)',
+                      }}
+                    >
+                      11%
+                    </Typography>
+                    <Typography
+                      style={{
+                        position: 'absolute',
+                        color: 'text.primary',
+                        top: 0,
+                        left: '95%',
+                        transform: 'translateX(-50%)',
+                      }}
+                    >
+                      100%
+                    </Typography>
+                  </Box>
+                  <Button variant="contained">Donate</Button>
+                </Stack>
+              </AccordionDetails>
+            </Accordion>
+          ))}
+        </AccordionDetails>
+      </Accordion>
+
+      <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
+        <AccordionSummary
+          aria-controls="panel3d-content"
+          id="panel3d-header"
+          expanded={expanded === 'panel3' ? 'true' : 'false'}
+        >
+          <Typography>State (or other regional subdivision)</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit
+            leo lobortis eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+            sit amet blandit leo lobortis eget.
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+
+      <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
+        <AccordionSummary
+          aria-controls="panel4d-content"
+          id="panel4d-header"
+          expanded={expanded === 'panel4' ? 'true' : 'false'}
+        >
+          <Typography>Local (town or county - in the case of the USA)</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit
+            leo lobortis eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+            sit amet blandit leo lobortis eget.
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+    </div>
   );
 }

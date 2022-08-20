@@ -6,7 +6,7 @@ import { Box, Button, AppBar, Toolbar, Container, Stack, InputAdornment } from '
 import useOffSetTop from '../../hooks/useOffSetTop';
 import useResponsive from '../../hooks/useResponsive';
 // utils
-import cssStyles from '../../utils/cssStyles';
+// import cssStyles from '../../utils/cssStyles';
 // config
 import { HEADER } from '../../config';
 // components
@@ -59,12 +59,12 @@ export default function MainHeader() {
   const isHome = pathname === '/';
 
   return (
-    <AppBar sx={{ boxShadow: 0, bgcolor: 'transparent' }}>
+    <AppBar sx={{ boxShadow: 0, bgcolor: theme.palette.grey[800] }}>
       <ToolbarStyle
         disableGutters
         sx={{
           ...(isOffset && {
-            ...cssStyles(theme).bgBlur(),
+            // ...cssStyles(theme).bgBlur(),
             height: { md: HEADER.MAIN_DESKTOP_HEIGHT - 16 },
           }),
         }}
@@ -90,7 +90,8 @@ export default function MainHeader() {
               }}
               sx={{
                 '& .MuiOutlinedInput-root': {
-                  height: 40
+                  color: 'white',
+                  height: 40,
                 },
               }}
             />
