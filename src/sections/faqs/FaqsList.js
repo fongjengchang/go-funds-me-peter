@@ -59,11 +59,16 @@ const AccordionSummary = styled((props) => {
 }));
 
 export default function CustomizedAccordions() {
-  const [expanded, setExpanded] = useState('panel1');
-  const [subExpended, setSubExpended] = useState(false);
+  const [expanded, setExpanded] = useState('');
+  const [subExpended, setSubExpended] = useState('');
+  const [federalExpended, setFederalExpended] = useState('');
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
+  };
+
+  const handleFederalChange = (panel) => (event, newExpanded) => {
+    setFederalExpended(newExpanded ? panel : false);
   };
 
   const handleSubChange = (panel) => (event, newExpanded) => {
@@ -81,11 +86,7 @@ export default function CustomizedAccordions() {
           <Typography>Global</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit
-            leo lobortis eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-            sit amet blandit leo lobortis eget.
-          </Typography>
+          <Typography />
         </AccordionDetails>
       </Accordion>
 
@@ -98,55 +99,71 @@ export default function CustomizedAccordions() {
           <Typography>Federal</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          {federalFundraisers.map((fundraiser) => (
-            <Accordion
-              key={fundraiser.id}
-              expanded={subExpended === `sub-panel${fundraiser.id}`}
-              onChange={handleSubChange(`sub-panel${fundraiser.id}`)}
+          <Accordion
+            expanded={federalExpended === 'federal-panel1'}
+            onChange={handleFederalChange('federal-panel1')}
+            sx={{ '& .Mui-expanded': { border: 'none' } }}
+          >
+            <AccordionSummary
+              aria-controls="panel1d-content"
+              id="panel1d-header"
+              expanded={federalExpended === 'federal-panel1' ? 'true' : 'false'}
             >
-              <AccordionSummary
-                aria-controls={`sub-panel${fundraiser.id}d-content`}
-                id={`sub-panel${fundraiser.id}d-header`}
-                expanded={subExpended === `sub-panel${fundraiser.id}` ? 'true' : 'false'}
-              >
-                <Typography>{fundraiser.title}</Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Stack direction="row" spacing={2} alignItems="center">
-                  <Typography>
-                    Increase Servicememeber Salaries <br />
-                    Goal: $50,000,000
-                  </Typography>
-                  <Box sx={{ position: 'relative', flexGrow: 1 }}>
-                    <BorderLinearProgress variant="determinate" value={11} />
-                    <Typography
-                      style={{
-                        position: 'absolute',
-                        color: 'white',
-                        top: 0,
-                        left: '5%',
-                        transform: 'translateX(-50%)',
-                      }}
-                    >
-                      11%
-                    </Typography>
-                    <Typography
-                      style={{
-                        position: 'absolute',
-                        color: 'text.primary',
-                        top: 0,
-                        left: '95%',
-                        transform: 'translateX(-50%)',
-                      }}
-                    >
-                      100%
-                    </Typography>
-                  </Box>
-                  <Button variant="contained">Donate</Button>
-                </Stack>
-              </AccordionDetails>
-            </Accordion>
-          ))}
+              <Typography>United States</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              {federalFundraisers.map((fundraiser) => (
+                <Accordion
+                  key={fundraiser.id}
+                  expanded={subExpended === `sub-panel${fundraiser.id}`}
+                  onChange={handleSubChange(`sub-panel${fundraiser.id}`)}
+                >
+                  <AccordionSummary
+                    aria-controls={`sub-panel${fundraiser.id}d-content`}
+                    id={`sub-panel${fundraiser.id}d-header`}
+                    expanded={subExpended === `sub-panel${fundraiser.id}` ? 'true' : 'false'}
+                  >
+                    <Typography>{fundraiser.title}</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Stack direction="row" spacing={2} alignItems="center">
+                      <Typography>
+                        Increase Servicememeber Salaries <br />
+                        Goal: $50,000,000
+                      </Typography>
+                      <Box sx={{ position: 'relative', flexGrow: 1 }}>
+                        <BorderLinearProgress variant="determinate" value={11} />
+                        <Typography
+                          style={{
+                            position: 'absolute',
+                            color: 'white',
+                            top: 0,
+                            left: '5%',
+                            transform: 'translateX(-50%)',
+                          }}
+                        >
+                          11%
+                        </Typography>
+                        <Typography
+                          style={{
+                            position: 'absolute',
+                            color: 'text.primary',
+                            top: 0,
+                            left: '95%',
+                            transform: 'translateX(-50%)',
+                          }}
+                        >
+                          100%
+                        </Typography>
+                      </Box>
+                      <Button variant="contained">Donate</Button>
+                    </Stack>
+                  </AccordionDetails>
+                </Accordion>
+              ))}
+              F
+            </AccordionDetails>
+          </Accordion>
         </AccordionDetails>
       </Accordion>
 
@@ -159,11 +176,7 @@ export default function CustomizedAccordions() {
           <Typography>State (or other regional subdivision)</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit
-            leo lobortis eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-            sit amet blandit leo lobortis eget.
-          </Typography>
+          <Typography />
         </AccordionDetails>
       </Accordion>
 
@@ -176,11 +189,7 @@ export default function CustomizedAccordions() {
           <Typography>Local (town or county - in the case of the USA)</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit
-            leo lobortis eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-            sit amet blandit leo lobortis eget.
-          </Typography>
+          <Typography />
         </AccordionDetails>
       </Accordion>
     </div>
