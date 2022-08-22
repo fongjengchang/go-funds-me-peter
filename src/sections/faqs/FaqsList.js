@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
@@ -67,20 +67,6 @@ export default function CustomizedAccordions() {
   const [countryFilterName, setCountryFilterName] = useState('');
   const [federalFilterName, setFederalFilterName] = useState('');
 
-  const [fundraisersData, setFundraisersData] = useState([]);
-
-  useEffect(() => {
-    setFundraisersData(federalFundraisers);
-  }, [federalFundraisers]);
-
-  const handleChange = (panel) => (event, newExpanded) => {
-    setExpanded(newExpanded ? panel : false);
-  };
-
-  const handleFederalChange = (panel) => (event, newExpanded) => {
-    setFederalExpended(newExpanded ? panel : false);
-  };
-
   const handleSubChange = (panel) => (event, newExpanded) => {
     setSubExpended(newExpanded ? panel : false);
   };
@@ -91,7 +77,7 @@ export default function CustomizedAccordions() {
   });
 
   const dataFederalFiltered = applySortFilter({
-    data: fundraisersData,
+    data: federalFundraisers,
     filterName: federalFilterName,
   });
 
