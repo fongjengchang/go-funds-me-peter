@@ -2,63 +2,63 @@
   "federalFundraisers": [
     {
       "id": 1,
-      "title": "Agriculture"
+      "label": "Agriculture"
     },
     {
       "id": 2,
-      "title": "Commerce"
+      "label": "Commerce"
     },
     {
       "id": 3,
-      "title": "Defense"
+      "label": "Defense"
     },
     {
       "id": 4,
-      "title": "Education"
+      "label": "Education"
     },
     {
       "id": 5,
-      "title": "Energy"
+      "label": "Energy"
     },
     {
       "id": 6,
-      "title": "Health and Human Services"
+      "label": "Health and Human Services"
     },
     {
       "id": 7,
-      "title": "Homeland Security"
+      "label": "Homeland Security"
     },
     {
       "id": 8,
-      "title": "Housing and Urban Development"
+      "label": "Housing and Urban Development"
     },
     {
       "id": 9,
-      "title": "Justice"
+      "label": "Justice"
     },
     {
       "id": 10,
-      "title": "Labor"
+      "label": "Labor"
     },
     {
       "id": 11,
-      "title": "State"
+      "label": "State"
     },
     {
       "id": 12,
-      "title": "Interior"
+      "label": "Interior"
     },
     {
       "id": 13,
-      "title": "Treasury"
+      "label": "Treasury"
     },
     {
       "id": 14,
-      "title": "Transportation"
+      "label": "Transportation"
     },
     {
       "id": 15,
-      "title": "Veterans Affairs"
+      "label": "Veterans Affairs"
     }
   ],
   "countries": [

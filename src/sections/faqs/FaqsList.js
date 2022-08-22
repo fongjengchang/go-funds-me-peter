@@ -1,19 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 
-import { Stack, Typography, Box, Button } from '@mui/material';
+import { Stack, Typography, Box, Button, IconButton, InputAdornment } from '@mui/material';
 
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
 
 // components
 import Iconify from '../../components/Iconify';
+import InputStyle from '../../components/InputStyle';
 
 import mockData from '../../assets/mock_up_data.json';
 
-const { federalFundraisers } = mockData;
+const { federalFundraisers, countries } = mockData;
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 20,
@@ -63,6 +64,15 @@ export default function CustomizedAccordions() {
   const [subExpended, setSubExpended] = useState('');
   const [federalExpended, setFederalExpended] = useState('');
 
+  const [countryFilterName, setCountryFilterName] = useState('');
+  const [federalFilterName, setFederalFilterName] = useState('');
+
+  const [fundraisersData, setFundraisersData] = useState([]);
+
+  useEffect(() => {
+    setFundraisersData(federalFundraisers);
+  }, [federalFundraisers]);
+
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
@@ -75,123 +85,345 @@ export default function CustomizedAccordions() {
     setSubExpended(newExpanded ? panel : false);
   };
 
+  const dataCountryFiltered = applySortFilter({
+    data: countries,
+    filterName: countryFilterName,
+  });
+
+  const dataFederalFiltered = applySortFilter({
+    data: fundraisersData,
+    filterName: federalFilterName,
+  });
+
   return (
     <div>
-      <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+      <Accordion expanded={expanded === 'panel1'}>
         <AccordionSummary
           aria-controls="panel1d-content"
           id="panel1d-header"
           expanded={expanded === 'panel1' ? 'true' : 'false'}
+          expandIcon={
+            <IconButton
+              color="secondary"
+              size="small"
+              aria-label="expend icon"
+              onClick={() => setExpanded(expanded === 'panel1' ? false : 'panel1')}
+            >
+              <Iconify icon={expanded === 'panel1' ? 'akar-icons:minus' : 'akar-icons:plus'} />
+            </IconButton>
+          }
+          onClick={(event) => {
+            event.stopPropagation();
+            event.preventDefault();
+          }}
         >
-          <Typography>Global</Typography>
+          {expanded === 'panel1' ? (
+            <InputStyle
+              stretchStart={280}
+              placeholder="Search fundraisers"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Iconify icon={'eva:search-fill'} sx={{ color: 'text.disabled', width: 20, height: 20 }} />
+                  </InputAdornment>
+                ),
+              }}
+              sx={{
+                '& .MuiOutlinedInput-root': {
+                  height: 40,
+                },
+              }}
+            />
+          ) : (
+            <Typography>Global</Typography>
+          )}
         </AccordionSummary>
         <AccordionDetails>
-          <Typography />
+          <Typography sx={{ textAlign: 'center' }}> There is no fundraisers</Typography>
         </AccordionDetails>
       </Accordion>
 
-      <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
+      <Accordion expanded={expanded === 'panel2'}>
         <AccordionSummary
           aria-controls="panel2d-content"
           id="panel2d-header"
-          expanded={expanded === 'panel2' || subExpended ? 'true' : 'false'}
+          expanded={expanded === 'panel2' ? 'true' : 'false'}
+          expandIcon={
+            <IconButton
+              color="secondary"
+              size="small"
+              aria-label="expend icon"
+              onClick={() => setExpanded(expanded === 'panel2' ? false : 'panel2')}
+            >
+              <Iconify icon={expanded === 'panel2' ? 'akar-icons:minus' : 'akar-icons:plus'} />
+            </IconButton>
+          }
+          onClick={(event) => {
+            event.stopPropagation();
+            event.preventDefault();
+          }}
         >
-          <Typography>Federal</Typography>
+          {expanded === 'panel2' ? (
+            <InputStyle
+              value={countryFilterName}
+              onChange={(e) => setCountryFilterName(e.target.value)}
+              stretchStart={280}
+              placeholder="Search fundraisers"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Iconify icon={'eva:search-fill'} sx={{ color: 'text.disabled', width: 20, height: 20 }} />
+                  </InputAdornment>
+                ),
+              }}
+              sx={{
+                '& .MuiOutlinedInput-root': {
+                  height: 40,
+                },
+              }}
+            />
+          ) : (
+            <Typography>Federal</Typography>
+          )}
         </AccordionSummary>
         <AccordionDetails>
-          <Accordion
-            expanded={federalExpended === 'federal-panel1'}
-            onChange={handleFederalChange('federal-panel1')}
-            sx={{ '& .Mui-expanded': { border: 'none' } }}
-          >
-            <AccordionSummary
-              aria-controls="panel1d-content"
-              id="panel1d-header"
-              expanded={federalExpended === 'federal-panel1' ? 'true' : 'false'}
-            >
-              <Typography>United States</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              {federalFundraisers.map((fundraiser) => (
-                <Accordion
-                  key={fundraiser.id}
-                  expanded={subExpended === `sub-panel${fundraiser.id}`}
-                  onChange={handleSubChange(`sub-panel${fundraiser.id}`)}
-                >
+          {dataCountryFiltered.length > 0 ? (
+            <>
+              {dataCountryFiltered.map((country, index) => (
+                <Accordion key={index} expanded={federalExpended === `federal-panel${index}`}>
                   <AccordionSummary
-                    aria-controls={`sub-panel${fundraiser.id}d-content`}
-                    id={`sub-panel${fundraiser.id}d-header`}
-                    expanded={subExpended === `sub-panel${fundraiser.id}` ? 'true' : 'false'}
+                    aria-controls="panel1d-content"
+                    id="panel1d-header"
+                    expanded={federalExpended === `federal-panel${index}` ? 'true' : 'false'}
+                    expandIcon={
+                      <IconButton
+                        color="secondary"
+                        size="small"
+                        aria-label="expend icon"
+                        onClick={() =>
+                          setFederalExpended(
+                            federalExpended === `federal-panel${index}` ? false : `federal-panel${index}`
+                          )
+                        }
+                      >
+                        <Iconify
+                          icon={federalExpended === `federal-panel${index}` ? 'akar-icons:minus' : 'akar-icons:plus'}
+                        />
+                      </IconButton>
+                    }
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      event.preventDefault();
+                    }}
                   >
-                    <Typography>{fundraiser.title}</Typography>
+                    {federalExpended === `federal-panel${index}` ? (
+                      <InputStyle
+                        value={federalFilterName}
+                        onChange={(e) => setFederalFilterName(e.target.value)}
+                        stretchStart={300}
+                        placeholder={`Search fundraisers in ${country.label}`}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <Iconify
+                                icon={'eva:search-fill'}
+                                sx={{ color: 'text.disabled', width: 20, height: 20 }}
+                              />
+                            </InputAdornment>
+                          ),
+                        }}
+                        sx={{
+                          '& .MuiOutlinedInput-root': {
+                            height: 40,
+                          },
+                        }}
+                      />
+                    ) : (
+                      <Stack direction="row" spacing={1} alignItems="center">
+                        <img
+                          loading="lazy"
+                          width="20"
+                          height="11"
+                          src={`https://flagcdn.com/w20/${country.code.toLowerCase()}.png`}
+                          srcSet={`https://flagcdn.com/w40/${country.code.toLowerCase()}.png 2x`}
+                          alt=""
+                        />
+                        <Typography variant="body2">
+                          {country.label} ({country.code}) +{country.phone}
+                        </Typography>
+                      </Stack>
+                    )}
                   </AccordionSummary>
                   <AccordionDetails>
-                    <Stack direction="row" spacing={2} alignItems="center">
-                      <Typography>
-                        Increase Servicememeber Salaries <br />
-                        Goal: $50,000,000
+                    {dataFederalFiltered.length > 0 ? (
+                      <>
+                        {dataFederalFiltered.map((fundraiser) => (
+                          <Accordion
+                            key={fundraiser.id}
+                            expanded={subExpended === `sub-panel${fundraiser.id}`}
+                            onChange={handleSubChange(`sub-panel${fundraiser.id}`)}
+                          >
+                            <AccordionSummary
+                              aria-controls={`sub-panel${fundraiser.id}d-content`}
+                              id={`sub-panel${fundraiser.id}d-header`}
+                              expanded={subExpended === `sub-panel${fundraiser.id}` ? 'true' : 'false'}
+                            >
+                              <Typography>{fundraiser.label}</Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                              <Stack direction={{ xs: 'column', md: 'row' }} spacing={2} alignItems="center">
+                                <Typography>
+                                  Increase Servicememeber Salaries <br />
+                                  Goal: $50,000,000
+                                </Typography>
+                                <Box sx={{ position: 'relative', flexGrow: 1 }}>
+                                  <BorderLinearProgress variant="determinate" value={11} />
+                                  <Typography
+                                    style={{
+                                      position: 'absolute',
+                                      color: 'white',
+                                      top: 0,
+                                      left: '5%',
+                                      transform: 'translateX(-50%)',
+                                    }}
+                                  >
+                                    11%
+                                  </Typography>
+                                  <Typography
+                                    style={{
+                                      position: 'absolute',
+                                      color: 'text.primary',
+                                      top: 0,
+                                      left: '95%',
+                                      transform: 'translateX(-50%)',
+                                    }}
+                                  >
+                                    100%
+                                  </Typography>
+                                </Box>
+                                <Button variant="contained">Donate</Button>
+                              </Stack>
+                            </AccordionDetails>
+                          </Accordion>
+                        ))}
+                      </>
+                    ) : (
+                      <Typography variant="body2" sx={{ textAlign: 'center' }}>
+                        No Results
                       </Typography>
-                      <Box sx={{ position: 'relative', flexGrow: 1 }}>
-                        <BorderLinearProgress variant="determinate" value={11} />
-                        <Typography
-                          style={{
-                            position: 'absolute',
-                            color: 'white',
-                            top: 0,
-                            left: '5%',
-                            transform: 'translateX(-50%)',
-                          }}
-                        >
-                          11%
-                        </Typography>
-                        <Typography
-                          style={{
-                            position: 'absolute',
-                            color: 'text.primary',
-                            top: 0,
-                            left: '95%',
-                            transform: 'translateX(-50%)',
-                          }}
-                        >
-                          100%
-                        </Typography>
-                      </Box>
-                      <Button variant="contained">Donate</Button>
-                    </Stack>
+                    )}
                   </AccordionDetails>
                 </Accordion>
               ))}
-              F
-            </AccordionDetails>
-          </Accordion>
+            </>
+          ) : (
+            <Typography variant="body2" sx={{ textAlign: 'center' }}>
+              No Results
+            </Typography>
+          )}
         </AccordionDetails>
       </Accordion>
 
-      <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
+      <Accordion expanded={expanded === 'panel3'}>
         <AccordionSummary
           aria-controls="panel3d-content"
           id="panel3d-header"
           expanded={expanded === 'panel3' ? 'true' : 'false'}
+          expandIcon={
+            <IconButton
+              color="secondary"
+              size="small"
+              aria-label="expend icon"
+              onClick={() => setExpanded(expanded === 'panel3' ? false : 'panel3')}
+            >
+              <Iconify icon={expanded === 'panel3' ? 'akar-icons:minus' : 'akar-icons:plus'} />
+            </IconButton>
+          }
+          onClick={(event) => {
+            event.stopPropagation();
+            event.preventDefault();
+          }}
         >
-          <Typography>State (or other regional subdivision)</Typography>
+          {expanded === 'panel3' ? (
+            <InputStyle
+              stretchStart={280}
+              placeholder="Search fundraisers"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Iconify icon={'eva:search-fill'} sx={{ color: 'text.disabled', width: 20, height: 20 }} />
+                  </InputAdornment>
+                ),
+              }}
+              sx={{
+                '& .MuiOutlinedInput-root': {
+                  height: 40,
+                },
+              }}
+            />
+          ) : (
+            <Typography>State (or other regional subdivision)</Typography>
+          )}
         </AccordionSummary>
         <AccordionDetails>
-          <Typography />
+          <Typography sx={{ textAlign: 'center' }}> There is no fundraisers</Typography>
         </AccordionDetails>
       </Accordion>
 
-      <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
+      <Accordion expanded={expanded === 'panel4'}>
         <AccordionSummary
           aria-controls="panel4d-content"
           id="panel4d-header"
           expanded={expanded === 'panel4' ? 'true' : 'false'}
+          expandIcon={
+            <IconButton
+              color="secondary"
+              size="small"
+              aria-label="expend icon"
+              onClick={() => setExpanded(expanded === 'panel4' ? false : 'panel4')}
+            >
+              <Iconify icon={expanded === 'panel4' ? 'akar-icons:minus' : 'akar-icons:plus'} />
+            </IconButton>
+          }
+          onClick={(event) => {
+            event.stopPropagation();
+            event.preventDefault();
+          }}
         >
-          <Typography>Local (town or county - in the case of the USA)</Typography>
+          {expanded === 'panel4' ? (
+            <InputStyle
+              stretchStart={280}
+              placeholder="Search fundraisers"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Iconify icon={'eva:search-fill'} sx={{ color: 'text.disabled', width: 20, height: 20 }} />
+                  </InputAdornment>
+                ),
+              }}
+              sx={{
+                '& .MuiOutlinedInput-root': {
+                  height: 40,
+                },
+              }}
+            />
+          ) : (
+            <Typography>Local (town or county - in the case of the USA)</Typography>
+          )}
         </AccordionSummary>
         <AccordionDetails>
-          <Typography />
+          <Typography sx={{ textAlign: 'center' }}> There is no fundraisers</Typography>
         </AccordionDetails>
       </Accordion>
     </div>
   );
+}
+
+function applySortFilter({ data, filterName }) {
+  console.log(data, filterName);
+  if (filterName) {
+    data = data.filter((item) => item.label.toLowerCase().indexOf(filterName.toLowerCase()) !== -1);
+  }
+
+  return data;
 }
