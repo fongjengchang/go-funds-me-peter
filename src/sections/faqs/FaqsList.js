@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { styled } from '@mui/material/styles';
+import { styled, useTheme } from '@mui/material/styles';
 import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
@@ -60,6 +60,7 @@ const AccordionSummary = styled((props) => {
 }));
 
 export default function CustomizedAccordions() {
+  const theme = useTheme();
   const [expanded, setExpanded] = useState('');
   const [subExpended, setSubExpended] = useState('');
   const [federalExpended, setFederalExpended] = useState('');
@@ -103,26 +104,26 @@ export default function CustomizedAccordions() {
             event.preventDefault();
           }}
         >
-          {expanded === 'panel1' ? (
-            <InputStyle
-              stretchStart={280}
-              placeholder="Search fundraisers"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <Iconify icon={'eva:search-fill'} sx={{ color: 'text.disabled', width: 20, height: 20 }} />
-                  </InputAdornment>
-                ),
-              }}
-              sx={{
-                '& .MuiOutlinedInput-root': {
-                  height: 40,
+          <InputStyle
+            stretchStart={280}
+            placeholder="Search for Global Fundraisers"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Iconify icon={'eva:search-fill'} sx={{ color: 'text.disabled', width: 20, height: 20 }} />
+                </InputAdornment>
+              ),
+            }}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                height: 40,
+                width: 280,
+                [theme.breakpoints.up('md')]: {
+                  width: 460,
                 },
-              }}
-            />
-          ) : (
-            <Typography>Global</Typography>
-          )}
+              },
+            }}
+          />
         </AccordionSummary>
         <AccordionDetails>
           <Typography sx={{ textAlign: 'center' }}> There is no fundraisers</Typography>
@@ -149,28 +150,28 @@ export default function CustomizedAccordions() {
             event.preventDefault();
           }}
         >
-          {expanded === 'panel2' ? (
-            <InputStyle
-              value={countryFilterName}
-              onChange={(e) => setCountryFilterName(e.target.value)}
-              stretchStart={280}
-              placeholder="Search fundraisers"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <Iconify icon={'eva:search-fill'} sx={{ color: 'text.disabled', width: 20, height: 20 }} />
-                  </InputAdornment>
-                ),
-              }}
-              sx={{
-                '& .MuiOutlinedInput-root': {
-                  height: 40,
+          <InputStyle
+            value={countryFilterName}
+            onChange={(e) => setCountryFilterName(e.target.value)}
+            stretchStart={280}
+            placeholder="Enter Country for Federal Fundraisers"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Iconify icon={'eva:search-fill'} sx={{ color: 'text.disabled', width: 20, height: 20 }} />
+                </InputAdornment>
+              ),
+            }}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                height: 40,
+                width: 280,
+                [theme.breakpoints.up('md')]: {
+                  width: 460,
                 },
-              }}
-            />
-          ) : (
-            <Typography>Federal</Typography>
-          )}
+              },
+            }}
+          />
         </AccordionSummary>
         <AccordionDetails>
           {dataCountryFiltered.length > 0 ? (
@@ -221,6 +222,10 @@ export default function CustomizedAccordions() {
                         sx={{
                           '& .MuiOutlinedInput-root': {
                             height: 40,
+                            width: 280,
+                            [theme.breakpoints.up('md')]: {
+                              width: 360,
+                            },
                           },
                         }}
                       />
@@ -330,26 +335,26 @@ export default function CustomizedAccordions() {
             event.preventDefault();
           }}
         >
-          {expanded === 'panel3' ? (
-            <InputStyle
-              stretchStart={280}
-              placeholder="Search fundraisers"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <Iconify icon={'eva:search-fill'} sx={{ color: 'text.disabled', width: 20, height: 20 }} />
-                  </InputAdornment>
-                ),
-              }}
-              sx={{
-                '& .MuiOutlinedInput-root': {
-                  height: 40,
+          <InputStyle
+            stretchStart={280}
+            placeholder="Enter American State or other Regional Subdivision for fundraisers"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Iconify icon={'eva:search-fill'} sx={{ color: 'text.disabled', width: 20, height: 20 }} />
+                </InputAdornment>
+              ),
+            }}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                height: 40,
+                width: 280,
+                [theme.breakpoints.up('md')]: {
+                  width: 460,
                 },
-              }}
-            />
-          ) : (
-            <Typography>State (or other regional subdivision)</Typography>
-          )}
+              },
+            }}
+          />
         </AccordionSummary>
         <AccordionDetails>
           <Typography sx={{ textAlign: 'center' }}> There is no fundraisers</Typography>
@@ -376,26 +381,26 @@ export default function CustomizedAccordions() {
             event.preventDefault();
           }}
         >
-          {expanded === 'panel4' ? (
-            <InputStyle
-              stretchStart={280}
-              placeholder="Search fundraisers"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <Iconify icon={'eva:search-fill'} sx={{ color: 'text.disabled', width: 20, height: 20 }} />
-                  </InputAdornment>
-                ),
-              }}
-              sx={{
-                '& .MuiOutlinedInput-root': {
-                  height: 40,
+          <InputStyle
+            stretchStart={280}
+            placeholder="Enter local Country, City, or town for local fundraisers"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Iconify icon={'eva:search-fill'} sx={{ color: 'text.disabled', width: 20, height: 20 }} />
+                </InputAdornment>
+              ),
+            }}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                height: 40,
+                width: 280,
+                [theme.breakpoints.up('md')]: {
+                  width: 460,
                 },
-              }}
-            />
-          ) : (
-            <Typography>Local (town or county - in the case of the USA)</Typography>
-          )}
+              },
+            }}
+          />
         </AccordionSummary>
         <AccordionDetails>
           <Typography sx={{ textAlign: 'center' }}> There is no fundraisers</Typography>
@@ -406,7 +411,6 @@ export default function CustomizedAccordions() {
 }
 
 function applySortFilter({ data, filterName }) {
-  console.log(data, filterName);
   if (filterName) {
     data = data.filter((item) => item.label.toLowerCase().indexOf(filterName.toLowerCase()) !== -1);
   }
