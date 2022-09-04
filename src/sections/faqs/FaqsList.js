@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { styled, useTheme } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
@@ -60,7 +60,6 @@ const AccordionSummary = styled((props) => {
 }));
 
 export default function CustomizedAccordions() {
-  const theme = useTheme();
   const [expanded, setExpanded] = useState('');
   const [subExpended, setSubExpended] = useState('');
   const [federalExpended, setFederalExpended] = useState('');
@@ -105,7 +104,6 @@ export default function CustomizedAccordions() {
           }}
         >
           <InputStyle
-            stretchStart={280}
             placeholder="Search for Global Fundraisers"
             InputProps={{
               startAdornment: (
@@ -115,12 +113,9 @@ export default function CustomizedAccordions() {
               ),
             }}
             sx={{
+              width: '90%',
               '& .MuiOutlinedInput-root': {
                 height: 40,
-                width: 280,
-                [theme.breakpoints.up('md')]: {
-                  width: 460,
-                },
               },
             }}
           />
@@ -153,7 +148,6 @@ export default function CustomizedAccordions() {
           <InputStyle
             value={countryFilterName}
             onChange={(e) => setCountryFilterName(e.target.value)}
-            stretchStart={280}
             placeholder="Enter Country for Federal Fundraisers"
             InputProps={{
               startAdornment: (
@@ -163,12 +157,9 @@ export default function CustomizedAccordions() {
               ),
             }}
             sx={{
+              width: '90%',
               '& .MuiOutlinedInput-root': {
                 height: 40,
-                width: 280,
-                [theme.breakpoints.up('md')]: {
-                  width: 460,
-                },
               },
             }}
           />
@@ -207,7 +198,6 @@ export default function CustomizedAccordions() {
                       <InputStyle
                         value={federalFilterName}
                         onChange={(e) => setFederalFilterName(e.target.value)}
-                        stretchStart={300}
                         placeholder={`Search fundraisers in ${country.label}`}
                         InputProps={{
                           startAdornment: (
@@ -220,12 +210,9 @@ export default function CustomizedAccordions() {
                           ),
                         }}
                         sx={{
+                          width: '90%',
                           '& .MuiOutlinedInput-root': {
                             height: 40,
-                            width: 280,
-                            [theme.breakpoints.up('md')]: {
-                              width: 360,
-                            },
                           },
                         }}
                       />
@@ -336,7 +323,6 @@ export default function CustomizedAccordions() {
           }}
         >
           <InputStyle
-            stretchStart={280}
             placeholder="Enter American State or other Regional Subdivision for fundraisers"
             InputProps={{
               startAdornment: (
@@ -346,12 +332,9 @@ export default function CustomizedAccordions() {
               ),
             }}
             sx={{
+              width: '90%',
               '& .MuiOutlinedInput-root': {
                 height: 40,
-                width: 280,
-                [theme.breakpoints.up('md')]: {
-                  width: 460,
-                },
               },
             }}
           />
@@ -382,8 +365,7 @@ export default function CustomizedAccordions() {
           }}
         >
           <InputStyle
-            stretchStart={280}
-            placeholder="Enter local Country, City, or town for local fundraisers"
+            placeholder="Enter local Country, City, or Town for local fundraisers"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -392,12 +374,9 @@ export default function CustomizedAccordions() {
               ),
             }}
             sx={{
+              width: '90%',
               '& .MuiOutlinedInput-root': {
                 height: 40,
-                width: 280,
-                [theme.breakpoints.up('md')]: {
-                  width: 460,
-                },
               },
             }}
           />

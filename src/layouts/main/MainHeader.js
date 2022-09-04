@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { styled, useTheme } from '@mui/material/styles';
@@ -12,6 +13,7 @@ import { HEADER } from '../../config';
 // components
 import Iconify from '../../components/Iconify';
 import InputStyle from '../../components/InputStyle';
+import ConfirmDialog from '../../components/ConfirmDialog';
 // paths
 // import { PATH_AUTH } from '../../routes/paths';
 //
@@ -49,6 +51,7 @@ const ToolbarShadowStyle = styled('div')(({ theme }) => ({
 
 export default function MainHeader() {
   const isOffset = useOffSetTop(HEADER.MAIN_DESKTOP_HEIGHT);
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   const theme = useTheme();
 
@@ -60,6 +63,7 @@ export default function MainHeader() {
 
   return (
     <AppBar sx={{ boxShadow: 0, bgcolor: theme.palette.grey[800] }}>
+      <ConfirmDialog onAgree={() => setDialogOpen(false)} isOpen={dialogOpen} title="" content="World Map!" />
       <ToolbarStyle
         disableGutters
         sx={{
@@ -96,7 +100,7 @@ export default function MainHeader() {
               }}
             />
             {isDesktop && (
-              <Button sx={{ maxWidth: 150, margin: 'auto' }} variant="contained">
+              <Button sx={{ maxWidth: 150, margin: 'auto' }} variant="contained" onClick={() => setDialogOpen(true)}>
                 <Iconify icon={'bx:map-pin'} sx={{ width: 25, height: 25 }} />
               </Button>
             )}
